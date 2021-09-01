@@ -1,0 +1,59 @@
+<div class="container">
+    <h3 style="text-align: center;padding: 30px;">Enter into Website</h3>
+    <div *ngIf="error" class="alert alert-danger" role="alert">
+        <strong>An Error Occured:</strong>{{error}}
+      </div>
+
+    <div class="row">
+        <div class="col-md-5">
+            <form [formGroup]="Form" (ngSubmit)="onSubmit()">
+                <h4> {{loginMode ? "Create Account" : "Sign In"}} </h4>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            @
+                        </span>
+                    </div>
+                    <input type="email" class="form-control" placeholder="Enter Email" formControlName="email">
+                    <span class="w-100" *ngIf="Form.get('email')?.touched && Form.get('email')?.hasError('required')">Enter the Email</span>
+            <span class="w-100"  *ngIf="Form.get('email')?.touched && Form.get('email')?.hasError('email')">Enter the Valid Email</span>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">@</span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                    <span class="w-100"  *ngIf="Form.get('password')?.touched && Form.get('password')?.hasError('required')">Enter the Password</span>
+            <span class="w-100"  *ngIf="Form.get('password')?.touched && Form.get('password')?.hasError('password')">Enter the Valid Password</span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn  btn-outline-primary btn-sm">
+                        {{loginMode ? "Sign Up" : "Sign In"}}
+                    </button>
+                </div>
+
+                <p class="mb-0">
+                    {{loginMode ?  "Already have Account?": "Don't have Account?"}}
+                    <a href="#" (click)="onModeSwitch()">
+                        {{loginMode ?  "Sign In" : "Create one" }}
+                    </a>
+                </p>
+                <a href="#">Forgot Password</a>
+            </form>
+
+        </div>
+
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-5">
+            <p>
+                <a class="btn btn-google btn-block " href="#">Sign-in Via Google</a>
+            </p>
+
+            <p>
+                <a class="btn btn-google btn-block " href="#">Sign-in Via Facebook</a>
+            </p>
+        </div>
+    </div>
+</div>

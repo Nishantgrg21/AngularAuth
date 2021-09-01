@@ -1,0 +1,10 @@
+.row{
+    background: rgb(242, 239, 239);
+    padding: 10px;
+    margin: 20px;
+}
+
+.btn-google {
+    color: #545454;
+    background-color: #ffffff;
+}
