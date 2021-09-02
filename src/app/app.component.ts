@@ -14,7 +14,7 @@ export class AppComponent {
   constructor(private _authService:AuthService){}
 
   ngOnInit(){
-    this._authService.user.subscribe(res=>{
+    this._authService.user.subscribe((res: any)=>{
 
       // Method 1
       // if(res){

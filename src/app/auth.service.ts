@@ -14,7 +14,7 @@ import { User } from './user.modal';
 export class AuthService {
 
   // create a subject 
-  user = new Subject<User>();
+  user:any = new Subject<User>();
   private tokenExpirationTimer:any;
 
   constructor(private http:HttpClient, private _errService:ErrorService, private router:Router ) {
@@ -88,7 +88,7 @@ export class AuthService {
   autoSignOut(expirationDuration:number){
    this.tokenExpirationTimer =  setTimeout(()=>{
      this.signOut();
-    },3000);
+    },expirationDuration);
 
   }
 
