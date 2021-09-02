@@ -6,7 +6,7 @@
         <a class="nav-item nav-link" [routerLink]="['admin']" routerLinkActivate="activate">Admin</a>
         <a class="nav-item nav-link" *ngIf="isLoggedIn">Profile</a>
         <a class="nav-item nav-link" [routerLink]="['home']" routerLinkActivate="activate" *ngIf="!isLoggedIn" >Sign In</a>
-        <a class="nav-item nav-link" *ngIf="isLoggedIn"> Sign Out</a>
+        <a class="nav-item nav-link" *ngIf="isLoggedIn" (click)="onSignOut()"> Sign Out</a>
       </div>
       
     </div>

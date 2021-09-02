@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject, throwError } from 'rxjs';
 import { tap ,catchError} from 'rxjs/operators';
 import { AuthResponse } from './auth-response.interface';
@@ -14,8 +15,9 @@ export class AuthService {
 
   // create a subject 
   user = new Subject<User>();
+  private tokenExpirationTimer:any;
 
-  constructor(private http:HttpClient, private _errService:ErrorService ) {
+  constructor(private http:HttpClient, private _errService:ErrorService, private router:Router ) {
    
    }
 
@@ -61,8 +63,33 @@ export class AuthService {
     // check token is valid or not
     if(loggedInUser.token){
       this.user.next(loggedInUser);
+
+      const expirationDuration= new Date(userData._tokenExpiryDate).getTime() - new Date().getTime();
+      this.autoSignOut(expirationDuration);
     }
     
+  }
+
+
+  //Create a signout Method
+  signOut(){
+    this.user.next(null || undefined);
+    this.router.navigate(['home']);
+    localStorage.removeItem('loginUserData');
+
+    if(this.tokenExpirationTimer){
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
+
+  }
+
+  //Create a automatically signout Method
+  autoSignOut(expirationDuration:number){
+   this.tokenExpirationTimer =  setTimeout(()=>{
+     this.signOut();
+    },3000);
+
   }
 
   // Create a Authantication Method
@@ -73,6 +100,7 @@ export class AuthService {
     const users = new User(email,userId,token,expiratinDate);
     console.log('user => ',users);
     this.user.next(users); // Store data in User Subject
+    this.autoSignOut(expiresIn*1000);
     localStorage.setItem('loginUserData',JSON.stringify(users) );
   }
 }

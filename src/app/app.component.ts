@@ -32,4 +32,8 @@ export class AppComponent {
 this._authService.autoSignIn();
    
   }
+
+  onSignOut(){
+    this._authService.signOut();
+  }
 }
