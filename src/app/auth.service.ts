@@ -15,7 +15,9 @@ export class AuthService {
   // create a subject 
   user = new Subject<User>();
 
-  constructor(private http:HttpClient, private _errService:ErrorService) { }
+  constructor(private http:HttpClient, private _errService:ErrorService ) {
+   
+   }
 
   // Signup Method
   signUp(email: any,password: any){
@@ -46,6 +48,23 @@ export class AuthService {
     )
   }
 
+  // Automatcally signin using local storage value
+  autoSignIn(){
+    const userData:any = JSON.parse(localStorage.getItem('loginUserData')|| '{}');
+    //console.log(JSON.parse(userData));
+
+    if(!userData){
+      return;
+    }
+
+    const loggedInUser = new User(userData.email,userData.id, userData._token,new Date(userData._tokenExpiryDate));
+    // check token is valid or not
+    if(loggedInUser.token){
+      this.user.next(loggedInUser);
+    }
+    
+  }
+
   // Create a Authantication Method
 
  private authentaticUser(email: any, userId: any, token: any,expiresIn: any){
@@ -53,6 +72,9 @@ export class AuthService {
   const expiratinDate = new Date(new Date().getTime() + expiresIn*1000);
     const users = new User(email,userId,token,expiratinDate);
     console.log('user => ',users);
-    this.user.next(users);
+    this.user.next(users); // Store data in User Subject
+    localStorage.setItem('loginUserData',JSON.stringify(users) );
   }
 }
+
+

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthResponse } from '../auth-response.interface';
 import { AuthService } from '../auth.service';
@@ -17,7 +18,8 @@ export class AuthComponent implements OnInit {
   constructor(
     private formbuilder: FormBuilder,
     private _authService: AuthService,
-    private _errService: ErrorService
+    private _errService: ErrorService,
+    private router :Router
   ) { }
 
   ngOnInit(): void {
@@ -55,6 +57,7 @@ export class AuthComponent implements OnInit {
     authObservable.subscribe(
       res=>{
         console.log(res);
+        this.router.navigate(['admin']);
       },
       err=>{
         console.log(err);

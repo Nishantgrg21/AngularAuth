@@ -1,11 +1,17 @@
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-expand-sm">
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-item nav-link active"[routerLink]="['home']" routerLinkActivate="activate">Home </a>
         <a class="nav-item nav-link" [routerLink]="['admin']" routerLinkActivate="activate">Admin</a>
+        <a class="nav-item nav-link" *ngIf="isLoggedIn">Profile</a>
+        <a class="nav-item nav-link" [routerLink]="['home']" routerLinkActivate="activate" *ngIf="!isLoggedIn" >Sign In</a>
+        <a class="nav-item nav-link" *ngIf="isLoggedIn"> Sign Out</a>
       </div>
+      
     </div>
+    
 </nav>
+
 
 <router-outlet></router-outlet>
