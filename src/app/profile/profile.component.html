@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title" style="float: left;">Profile</h5>
+            
+            <div style="float: right;">
+                <a  class="btn btn-success" routerLink="/profile" [queryParams]="{EditMode:true}" (click)="onEditProfile()">Edit Profile</a>
+            </div>
+          </div>
+        <div class="card-body">
+            <p class="card-title">Edit Mode: {{editMode}}</p>
+            <form [formGroup]="Form" (ngSubmit)="onSubmit()">
+                <div class="form-group mt-3">
+                    <!--Use Ternary Operator in interpolation binding to hide and show enter -->
+                  <label for="name">{{editMode ? 'Enter' :' ' }} Name</label>
+                  <p class="value" *ngIf="!editMode"> Nishant Garg</p>
+                  <input type="text" *ngIf="editMode" class="form-control" id="name" formControlName="name">
+                 
+                </div>
+                <div class="form-group mt-3">
+                  <label for="pictureUrl">{{editMode ? 'Enter' :' ' }}  Profile Picture Url</label>
+                  <p class="value"  *ngIf="!editMode"> Nishant Garg Profile Url</p>
+                  <input type="url"*ngIf="editMode" id="pictureUrl" class="form-control" formControlName="pictureUrl">
+                </div>
+                
+                <div class="form-group mt-3" *ngIf="editMode">
+                    <button type="submit" class="btn btn-primary" >Save Profile </button>&nbsp;&nbsp;
+                    <button type="button" class="btn btn-danger" (click)="onDiscard()">Discard</button>
+                  </div>
+              </form>
+            
+          </div>
+         
+      
+    </div>
+    
+</div>
+

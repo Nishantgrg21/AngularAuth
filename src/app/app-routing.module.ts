@@ -4,6 +4,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,9 @@ const routes: Routes = [
   },
   {
     path: 'admin', canActivate:[AuthGuard] ,component:AdminComponent
+  },
+  {
+    path: 'profile' ,component:ProfileComponent
   },
 
 ];

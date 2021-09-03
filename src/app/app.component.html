@@ -4,7 +4,8 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link active"[routerLink]="['home']" routerLinkActivate="activate">Home </a>
         <a class="nav-item nav-link" [routerLink]="['admin']" routerLinkActivate="activate">Admin</a>
-        <a class="nav-item nav-link" *ngIf="isLoggedIn">Profile</a>
+        <a class="nav-item nav-link" [routerLink]="['profile']" routerLinkActivate="activate">Profile</a>
+        <a class="nav-item nav-link" routerLink="profile" [queryParams]="{EditMode:true}" routerLinkActivate="activate" >Edit Profile</a>
         <a class="nav-item nav-link" [routerLink]="['home']" routerLinkActivate="activate" *ngIf="!isLoggedIn" >Sign In</a>
         <a class="nav-item nav-link" *ngIf="isLoggedIn" (click)="onSignOut()"> Sign Out</a>
       </div>
